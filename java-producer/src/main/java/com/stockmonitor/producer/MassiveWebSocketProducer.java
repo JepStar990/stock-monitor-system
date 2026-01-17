@@ -8,16 +8,17 @@ import org.apache.kafka.common.serialization.StringSerializer;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
+import io.github.cdimascio.dotenv.Dotenv;
+import java.time.Duration;
 import java.net.URI;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class MassiveWebSocketProducer {
-    
-    private static final String MASSIVE_WS_URL = "wss://socket.massive.com/stocks";
-    private static final String KAFKA_BOOTSTRAP = "localhost:9092";
-    private static final String KAFKA_TOPIC = "raw-trades";
-    private static final String API_KEY = "cOgMatkvDHy9RNNIc5pkCSOQd7RtWrp3";
+    private static final String MASSIVE_WS_URL = System.getenv().getOrDefault("MASSIVE_WS_URL", "wss://socket.massive.com/stocks");
+    private static final String KAFKA_BOOTSTRAP = System.getenv().getOrDefault("KAFKA_BOOTSTRAP_SERVERS", "localhost:9092");
+    private static final String KAFKA_TOPIC = System.getenv().getOrDefault("KAFKA_TOPIC", "raw-trades");
+    private static final String API_KEY = System.getenv("MASSIVE_API_KEY");
     
     private final KafkaProducer<String, String> kafkaProducer;
     private final ObjectMapper objectMapper;
@@ -145,12 +146,27 @@ public class MassiveWebSocketProducer {
     }
     
     public void shutdown() {
-        kafkaProducer.close(10, TimeUnit.SECONDS);
+        if (kafkaProducer != null) {
+            kafkaProducer.close(Duration.ofMillis(5000));
+        }
     }
     
     public static void main(String[] args) {
+
+         // Load .env file
+         Dotenv dotenv = Dotenv.configure()
+            .directory("./")
+            .ignoreIfMissing()
+            .load();
+    
         MassiveWebSocketProducer producer = new MassiveWebSocketProducer();
-        
+    
+        // Validate API key
+        if (API_KEY == null || API_KEY.isEmpty()) {
+            System.err.println("ERROR: MASSIVE_API_KEY not found in environment variables!");
+            System.err.println("Please set MASSIVE_API_KEY in your .env file or environment.");
+            System.exit(1);
+        } 
         // Add shutdown hook
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             System.out.println("Shutting down producer...");

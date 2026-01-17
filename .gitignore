@@ -1,5 +1,64 @@
+# IDE specific files
+.idea/
+*.iml
+
+# Build directories
+target/
+out/
+*.class
+*.jar
+*.war
+*.ear
+
+# Maven files
+.mvn/
+.mvn/**/*
+
+# SBT files
+project/target/
+project/project/
+project/*.iml
+*.sbt
+*.lock
+*.log
+*.properties
+
+# Docker files
+docker-compose.override.yml
+docker-compose.prod.yml
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
+*.pid
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# OS generated files
+*.DS_Store
+*.lnk
+
+# Scala
 *.class
 *.log
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+# Java
 hs_err_pid*
+*.class
+*.dex
+*.apk
+*.jks
+
+# Coverage reports
+coverage/

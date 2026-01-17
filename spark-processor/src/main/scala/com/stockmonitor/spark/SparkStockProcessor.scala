@@ -164,7 +164,7 @@ object SparkStockProcessor {
         batchDF.collect().foreach { row =>
           println(s"🚨 ALERT: ${row.getAs[String]("symbol")} - " +
             s"${row.getAs[String]("signal")} signal at " +
-            s"$${row.getAs[Double]("current_price")}")
+            s"${row.getAs[Double]("current_price")}")
         }
       }
       .outputMode("append")
