@@ -1,0 +1,14 @@
+apiVersion: 1
+
+datasources:
+  - name: PostgreSQL
+    type: postgres
+    url: timescaledb:5432
+    database: stockdb
+    user: postgres
+    secureJsonData:
+      password: 'postgres'
+    jsonData:
+      sslmode: 'disable'
+      postgresVersion: 1500
+      timescaledb: true
