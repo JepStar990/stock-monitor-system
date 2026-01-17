@@ -18,7 +18,7 @@ Get the system running in under 5 minutes:
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/stock-monitor-system.git
+git clone https://github.com/JepStar990/stock-monitor-system.git
 cd stock-monitor-system
 
 # Start services
@@ -656,9 +656,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📧 Contact
 
-- **Author**: Your Name
-- **Email**: your.email@example.com
-- **GitHub**: [@yourusername](https://github.com/yourusername)
+- **Author**: Zwiswa Muridili
+- **Email**: zwiswamuridili990@gmail.com
+- **GitHub**: [@JepStar990](https://github.com/JepStar990)
 - **LinkedIn**: [Your Profile](https://linkedin.com/in/yourprofile)
 
 ---
@@ -701,7 +701,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## ⭐ Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=yourusername/stock-monitor-system&type=Date)](https://star-history.com/#yourusername/stock-monitor-system&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=JepStar990/stock-monitor-system&type=Date)](https://star-history.com/#JepStar990/stock-monitor-system&Date)
 
 ---
 
