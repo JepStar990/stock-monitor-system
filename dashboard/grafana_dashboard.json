@@ -1,0 +1,72 @@
+{
+  "dashboard": {
+    "title": "Real-Time Stock Market Monitor",
+    "panels": [
+      {
+        "id": 1,
+        "title": "Live Stock Prices",
+        "type": "timeseries",
+        "datasource": "PostgreSQL",
+        "targets": [
+          {
+            "format": "time_series",
+            "rawSql": "SELECT window_start as time, avg_price as value, symbol as metric FROM stock_aggregates WHERE $__timeFilter(window_start) ORDER BY window_start",
+            "refId": "A"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Price vs 5-Min MA",
+        "type": "timeseries",
+        "datasource": "PostgreSQL",
+        "targets": [
+          {
+            "format": "time_series",
+            "rawSql": "SELECT window_start as time, avg_price as 'Current Price', ma_5min as 'MA 5-min' FROM stock_aggregates WHERE symbol = '$symbol' AND $__timeFilter(window_start) ORDER BY window_start",
+            "refId": "A"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Trading Volume",
+        "type": "barchart",
+        "datasource": "PostgreSQL",
+        "targets": [
+          {
+            "format": "time_series",
+            "rawSql": "SELECT window_start as time, total_volume as value, symbol as metric FROM stock_aggregates WHERE $__timeFilter(window_start) ORDER BY window_start",
+            "refId": "A"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Breakout Alerts",
+        "type": "table",
+        "datasource": "PostgreSQL",
+        "targets": [
+          {
+            "format": "table",
+            "rawSql": "SELECT timestamp, symbol, signal, current_price, window_avg FROM breakout_alerts WHERE $__timeFilter(timestamp) ORDER BY timestamp DESC LIMIT 50",
+            "refId": "A"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Current Trend",
+        "type": "stat",
+        "datasource": "PostgreSQL",
+        "targets": [
+          {
+            "format": "table",
+            "rawSql": "SELECT symbol, trend, current_price, ma_5min FROM latest_stock_data",
+            "refId": "A"
+          }
+        ]
+      }
+    ]
+  }
+}
